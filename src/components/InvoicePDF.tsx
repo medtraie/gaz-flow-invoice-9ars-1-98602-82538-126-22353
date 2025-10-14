@@ -240,8 +240,8 @@ export class InvoicePDF {
       ];
     } else if (invoice.companyName === 'ARGANA ENERGY') {
       footerText = [
-        'ARGANA ENERGIE SARL',
-        'Informations légales à définir' // TODO: Add actual legal information for ARGANA ENERGY
+        'RESIDENCE AL MACHRIK II – RUE JAAFAR BNOU HABIB – BOURGOGNE – CASABLANCA',
+        'RC N° : 634559 | Patente N° : 35607765 | IF N° : 65992905 | CNSS N° : 5583539 | ICE N° : 003531503000031'
       ];
     } else {
       // Default to Orange Energie

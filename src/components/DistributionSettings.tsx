@@ -27,6 +27,8 @@ interface DistributionSettingsProps {
   setStartingInvoiceNumber: (value: string) => void;
   hideDay: boolean;
   setHideDay: (value: boolean) => void;
+  useEInvoiceFormat: boolean;
+  setUseEInvoiceFormat: (value: boolean) => void;
 }
 
 export default function DistributionSettings({
@@ -47,7 +49,9 @@ export default function DistributionSettings({
   startingInvoiceNumber,
   setStartingInvoiceNumber,
   hideDay,
-  setHideDay
+  setHideDay,
+  useEInvoiceFormat,
+  setUseEInvoiceFormat
 }: DistributionSettingsProps) {
   const [newHoliday, setNewHoliday] = useState<string>("");
 
@@ -207,6 +211,17 @@ export default function DistributionSettings({
                 </p>
               </div>
             )}
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="use-e-format"
+              checked={useEInvoiceFormat}
+              onCheckedChange={setUseEInvoiceFormat}
+            />
+            <Label htmlFor="use-e-format">
+              Utiliser le format FA/E (au lieu de FA)
+            </Label>
           </div>
 
           <div className="flex items-center space-x-2">

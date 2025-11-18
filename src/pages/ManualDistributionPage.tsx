@@ -14,6 +14,7 @@ export default function ManualDistributionPage() {
   const [startingInvoiceNumber, setStartingInvoiceNumber] = useState<string>("");
   const [useCustomInvoiceNumber, setUseCustomInvoiceNumber] = useState<boolean>(false);
   const [hideDay, setHideDay] = useState<boolean>(false);
+  const [useEInvoiceFormat, setUseEInvoiceFormat] = useState<boolean>(false);
 
   return (
     <div className="space-y-6">
@@ -40,6 +41,8 @@ export default function ManualDistributionPage() {
         setStartingInvoiceNumber={setStartingInvoiceNumber}
         hideDay={hideDay}
         setHideDay={setHideDay}
+        useEInvoiceFormat={useEInvoiceFormat}
+        setUseEInvoiceFormat={setUseEInvoiceFormat}
       />
 
       <Card>

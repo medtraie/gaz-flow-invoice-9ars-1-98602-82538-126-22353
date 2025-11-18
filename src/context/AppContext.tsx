@@ -21,6 +21,7 @@ interface AppContextType {
   deselectAllInvoices: () => void;
   createManualInvoice: (clientId: string, items: InvoiceItem[]) => Invoice | null;
   deleteAllData: () => void;
+  clearInventory: () => void;
   setInvoiceStartNumber: (startingNumber: number) => void;
 }
 
@@ -285,6 +286,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSelectedInvoices([]);
   };
 
+  // Function to clear inventory
+  const clearInventory = () => {
+    setInventory(defaultInventory);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -305,6 +311,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         deselectAllInvoices,
         createManualInvoice,
         deleteAllData,
+        clearInventory,
         setInvoiceStartNumber
       }}
     >

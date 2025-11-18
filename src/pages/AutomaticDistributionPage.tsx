@@ -13,7 +13,7 @@ import DistributionSettings from "@/components/DistributionSettings";
 export default function AutomaticDistributionPage() {
   const { 
     clients, inventory, settings, setInvoices, setInventory, invoices,
-    setInvoiceStartNumber 
+    setInvoiceStartNumber, updateSettings 
   } = useAppContext();
   const { t } = useLanguage();
   const [includeRemaining, setIncludeRemaining] = useState(false);
@@ -28,6 +28,15 @@ export default function AutomaticDistributionPage() {
   const [startingInvoiceNumber, setStartingInvoiceNumber] = useState<string>("");
   const [useCustomInvoiceNumber, setUseCustomInvoiceNumber] = useState<boolean>(false);
   const [hideDay, setHideDay] = useState<boolean>(false);
+  const [useEInvoiceFormat, setUseEInvoiceFormat] = useState<boolean>(settings.useEInvoiceFormat || false);
+
+  // Update settings when useEInvoiceFormat changes
+  useEffect(() => {
+    updateSettings({
+      ...settings,
+      useEInvoiceFormat
+    });
+  }, [useEInvoiceFormat]);
 
   // Helper function to format date based on hideDay setting
   const formatInvoiceDate = (date: Date): string => {
@@ -211,6 +220,8 @@ export default function AutomaticDistributionPage() {
         setStartingInvoiceNumber={setStartingInvoiceNumber}
         hideDay={hideDay}
         setHideDay={setHideDay}
+        useEInvoiceFormat={useEInvoiceFormat}
+        setUseEInvoiceFormat={setUseEInvoiceFormat}
       />
 
       <div className="pt-4">

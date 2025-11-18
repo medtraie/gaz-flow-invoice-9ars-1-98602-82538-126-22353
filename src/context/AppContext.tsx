@@ -30,6 +30,7 @@ const defaultSettings: Settings = {
   companyName: 'ORANGE ENERGY',
   minInvoiceAmount: 3000,
   maxInvoiceAmount: 20000,
+  useEInvoiceFormat: false,
   companies: {
     'ORANGE ENERGY': {
       name: 'ORANGE ENERGY',

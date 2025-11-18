@@ -22,21 +22,25 @@ export class InvoicePDF {
     
     const invoiceNum = parts[2];
     
+    // Check if E format is enabled in settings
+    const settingsStr = localStorage.getItem('settings');
+    const useEFormat = settingsStr ? JSON.parse(settingsStr).useEInvoiceFormat : false;
+    
     // Parse the date to determine the format
     const dateParts = invoice.date.split('/');
     
     // Check if date is in MM/YYYY format (monthly distribution with hidden day)
     if (dateParts.length === 2) {
-      // Monthly format: FA + YYMM + N°Facture
+      // Monthly format: FA/E + YYMM + N°Facture or FA + YYMM + N°Facture
       const month = dateParts[0].padStart(2, '0');
       const year = dateParts[1].slice(-2); // Get last 2 digits of year
-      return `FA${year}${month}${invoiceNum}`;
+      return useEFormat ? `FA/E${year}${month}${invoiceNum}` : `FA${year}${month}${invoiceNum}`;
     } else if (dateParts.length === 3) {
-      // Daily format: FA + YYMMDD + N°Facture
+      // Daily format: FA/E + YYMMDD + N°Facture or FA + YYMMDD + N°Facture
       const day = dateParts[0].padStart(2, '0');
       const month = dateParts[1].padStart(2, '0');
       const year = dateParts[2].slice(-2); // Get last 2 digits of year
-      return `FA${year}${month}${day}${invoiceNum}`;
+      return useEFormat ? `FA/E${year}${month}${day}${invoiceNum}` : `FA${year}${month}${day}${invoiceNum}`;
     }
     
     // Fallback to original format if date parsing fails

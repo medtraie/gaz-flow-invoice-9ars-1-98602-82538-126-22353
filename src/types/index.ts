@@ -55,6 +55,7 @@ export interface Settings {
   companyName: 'ORANGE ENERGY' | 'TRADIGAZ' | 'ARGANA ENERGY';
   minInvoiceAmount: number;
   maxInvoiceAmount: number;
+  useEInvoiceFormat?: boolean; // Use FA/E format instead of FA
   companies: {
     [key: string]: CompanyInfo;
   };

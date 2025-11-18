@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import {
   Select,
@@ -37,6 +38,7 @@ export default function SettingsPage() {
     companyName: settings.companyName,
     minInvoiceAmount: settings.minInvoiceAmount,
     maxInvoiceAmount: settings.maxInvoiceAmount,
+    useEInvoiceFormat: settings.useEInvoiceFormat || false,
   });
 
   const [deleteCode, setDeleteCode] = useState("");
@@ -179,6 +181,22 @@ export default function SettingsPage() {
                     <SelectItem value="fr">🇫🇷 Français</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="e-invoice">Format de Facture Électronique</Label>
+                <div className="flex items-center space-x-2 pt-2">
+                  <Switch
+                    id="e-invoice"
+                    checked={formData.useEInvoiceFormat}
+                    onCheckedChange={(checked) => 
+                      setFormData(prev => ({ ...prev, useEInvoiceFormat: checked }))
+                    }
+                  />
+                  <Label htmlFor="e-invoice" className="font-normal">
+                    Utiliser le format FA/E (au lieu de FA)
+                  </Label>
+                </div>
               </div>
             </div>
 

@@ -5,10 +5,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 
 export default function InventoryPage() {
-  const { inventory, setInventory } = useAppContext();
+  const { inventory, setInventory, clearInventory } = useAppContext();
   
   const [editedInventory, setEditedInventory] = useState(() => 
     inventory.map(item => ({ ...item }))
@@ -64,13 +75,47 @@ export default function InventoryPage() {
     toast.success("Inventaire mis à jour avec succès");
   };
 
+  const handleClearInventory = () => {
+    clearInventory();
+    setEditedInventory([
+      { type: '12KG', totalQuantity: 0, distributedQuantity: 0, remainingQuantity: 0, unitPrice: 0, taxRate: 0 },
+      { type: '6KG', totalQuantity: 0, distributedQuantity: 0, remainingQuantity: 0, unitPrice: 0, taxRate: 0 },
+      { type: '3KG', totalQuantity: 0, distributedQuantity: 0, remainingQuantity: 0, unitPrice: 0, taxRate: 0 }
+    ]);
+    setInputValues({});
+    toast.success("L'inventaire a été vidé");
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Gestion de l'Inventaire</h1>
-        <Button onClick={saveChanges} className="bg-brand-teal hover:bg-opacity-90">
-          Enregistrer les Modifications
-        </Button>
+        <div className="flex gap-2">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive">
+                Vider l'inventaire
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Cette action va réinitialiser tout l'inventaire à zéro. Cette action est irréversible.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                <AlertDialogAction onClick={handleClearInventory}>
+                  Confirmer
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+          <Button onClick={saveChanges} className="bg-brand-teal hover:bg-opacity-90">
+            Enregistrer les Modifications
+          </Button>
+        </div>
       </div>
 
       <Card>

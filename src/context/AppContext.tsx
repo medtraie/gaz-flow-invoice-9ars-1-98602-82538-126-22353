@@ -26,7 +26,7 @@ interface AppContextType {
 }
 
 const defaultSettings: Settings = {
-  secretCode: '123456',
+  secretCode: '12345a',
   companyName: 'ORANGE ENERGY',
   minInvoiceAmount: 3000,
   maxInvoiceAmount: 20000,

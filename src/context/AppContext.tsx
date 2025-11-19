@@ -123,6 +123,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           migratedSettings.companyName = 'ORANGE ENERGY';
         }
         
+        // Update secret code if it's still the old default
+        if (migratedSettings.secretCode === '123456') {
+          migratedSettings.secretCode = '12345a';
+        }
+        
         // Ensure companies object exists and add logos
         if (!migratedSettings.companies) {
           migratedSettings.companies = defaultSettings.companies;

@@ -127,7 +127,7 @@ export function numberToWords(num: number): string {
     if (n < 70) {
       const unit = n % 10;
       const ten = Math.floor(n / 10);
-      if (unit === 1 && ten !== 1) {
+      if (unit === 1 && ten > 1) {
         return `${tens[ten]} et ${units[unit]}`;
       }
       return unit ? `${tens[ten]}-${units[unit]}` : tens[ten];
@@ -136,8 +136,8 @@ export function numberToWords(num: number): string {
     if (n < 80) {
       // 70-79: soixante-dix, soixante et onze, etc.
       const remainder = n - 60;
-      if (remainder === 11 || remainder === 71) {
-        return `soixante et ${teens[remainder - 10]}`;
+      if (remainder === 11) {
+        return 'soixante et onze';
       }
       return `soixante-${convert(remainder)}`;
     }
@@ -145,12 +145,14 @@ export function numberToWords(num: number): string {
     if (n < 100) {
       // 80-99
       if (n === 80) return 'quatre-vingts';
-      if (n < 90) {
+      const remainder = n - 80;
+      if (remainder < 10) {
         // 81-89: quatre-vingt-un, etc.
-        return `quatre-vingt-${units[n - 80]}`;
+        return `quatre-vingt-${units[remainder]}`;
+      } else {
+        // 90-99: quatre-vingt-dix, quatre-vingt-onze, etc.
+        return `quatre-vingt-${convert(remainder)}`;
       }
-      // 90-99: quatre-vingt-dix, quatre-vingt-onze, etc.
-      return `quatre-vingt-${convert(n - 80)}`;
     }
     
     if (n < 1000) {

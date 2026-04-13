@@ -124,8 +124,14 @@ export class InvoicePDF {
       identifiers.push(invoice.client.ice);
     }
     
+    let nextY = startY + 18;
     if (identifiers.length > 0) {
-      doc.text(`ICE/PATENTE: ${identifiers.join(' / ')}`, 15, startY + 18);
+      doc.text(`ICE/PATENTE: ${identifiers.join(' / ')}`, 15, nextY);
+      nextY += 6;
+    }
+    
+    if (invoice.client.address && invoice.client.address.trim() !== '') {
+      doc.text(`Adresse: ${invoice.client.address}`, 15, nextY);
     }
   }
 
